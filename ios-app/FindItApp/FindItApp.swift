@@ -1,5 +1,5 @@
 //
-//  FindItKIETApp.swift
+//  FindItApp.swift
 //  FindItKIET
 //
 //  Production-ready campus lost-and-found iOS app
@@ -8,7 +8,7 @@
 import SwiftUI
 
 @main
-struct FindItKIETApp: App {
+struct FindItApp: App {
     @StateObject private var appState = AppState()
     
     var body: some Scene {

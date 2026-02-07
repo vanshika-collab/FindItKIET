@@ -1,0 +1,183 @@
+// FindItKIET Database Schema
+// Production-ready schema with strong integrity, audit logging, and security
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// ============================================
+// User Management
+// ============================================
+
+model User {
+  id            String         @id @default(uuid())
+  email         String         @unique
+  passwordHash  String
+  name          String
+  role          Role           @default(USER)
+  bannedUntil   DateTime?
+  
+  // Relations
+  items         Item[]
+  claims        Claim[]
+  auditLogs     AuditLog[]
+  refreshTokens RefreshToken[]
+  certificates  Certificate[]
+  
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  
+  @@index([email])
+  @@index([role])
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+// ============================================
+// Items (Lost & Found)
+// ============================================
+
+model Item {
+  id          String       @id @default(uuid())
+  title       String
+  description String       @db.Text
+  category    String
+  status      ItemStatus   @default(LOST)
+  location    String?
+  reportedAt  DateTime
+  
+  // Relations
+  images      ItemImage[]
+  claims      Claim[]
+  createdBy   User         @relation(fields: [createdById], references: [id])
+  createdById String
+  
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  
+  @@index([status])
+  @@index([category])
+  @@index([createdById])
+  @@index([reportedAt])
+}
+
+enum ItemStatus {
+  LOST
+  FOUND
+  CLAIMED
+  RECOVERED
+}
+
+model ItemImage {
+  id       String   @id @default(uuid())
+  imageUrl String
+  item     Item     @relation(fields: [itemId], references: [id], onDelete: Cascade)
+  itemId   String
+  createdAt DateTime @default(now())
+  
+  @@index([itemId])
+}
+
+// ============================================
+// Claims & Proof
+// ============================================
+
+model Claim {
+  id           String       @id @default(uuid())
+  status       ClaimStatus  @default(PENDING)
+  adminComment String?      @db.Text
+  
+  // Relations
+  item         Item         @relation(fields: [itemId], references: [id])
+  itemId       String
+  user         User         @relation(fields: [userId], references: [id])
+  userId       String
+  proofs       ClaimProof[]
+  
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  
+  // Prevent duplicate claims by same user
+  @@unique([itemId, userId])
+  @@index([status])
+  @@index([itemId])
+  @@index([userId])
+}
+
+enum ClaimStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+model ClaimProof {
+  id         String   @id @default(uuid())
+  proofType  String
+  proofValue String   @db.Text
+  imageUrl   String?
+  
+  claim      Claim    @relation(fields: [claimId], references: [id], onDelete: Cascade)
+  claimId    String
+  createdAt  DateTime @default(now())
+  
+  @@index([claimId])
+}
+
+// ============================================
+// Authentication
+// ============================================
+
+model RefreshToken {
+  id        String   @id @default(uuid())
+  token     String   @unique
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  
+  @@index([userId])
+  @@index([expiresAt])
+}
+
+// ============================================
+// Audit & Security
+// ============================================
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  actor     User     @relation(fields: [actorId], references: [id])
+  actorId   String
+  action    String
+  entity    String
+  entityId  String
+  metadata  Json?
+  createdAt DateTime @default(now())
+  
+  @@index([actorId])
+  @@index([entity])
+  @@index([createdAt])
+}
+
+// ============================================
+// Certificates
+// ============================================
+
+model Certificate {
+  id        String   @id @default(uuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  issuedAt  DateTime @default(now())
+  url       String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+}
