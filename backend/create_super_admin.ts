@@ -1,14 +1,14 @@
 
 import { PrismaClient, Role } from '@prisma/client';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 
 const prisma = new PrismaClient();
 
 async function main() {
     console.log('Creating SUPER admin user...');
 
-    const email = 'superadmin@kiet.edu';
-    const password = 'SuperSecret123!';
+    const email = 'superadmin@example.com';
+    const password = '<set-a-secure-password>';
 
     // Hash the password
     const salt = await bcrypt.genSalt(10);
