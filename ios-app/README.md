@@ -108,8 +108,8 @@ let items = try await APIClient.shared.request(
 
 ### Test Credentials
 Create test users via backend:
-- Regular user: `user@kiet.edu` / `password`
-- Admin user: `admin@kiet.edu` / `password`
+- Regular user: `user@example.com` / `<your-password>`
+- Admin user: `admin@example.com` / `<your-password>`
 
 ### Test Flow
 1. Login with test account

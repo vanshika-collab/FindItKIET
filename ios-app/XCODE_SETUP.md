@@ -133,8 +133,8 @@ Then follow Option 1 from Step 5.
 ### First Time Setup:
 1. **App launches** → You should see the login screen with FindItKIET logo
 2. **Login** with:
-   - Email: `test@kiet.edu`
-   - Password: `password123`
+   - Email: `test@example.com`
+   - Password: `<your-password>`
 3. If login succeeds, you'll see the main tab bar interface
 
 ### Navigation Test:

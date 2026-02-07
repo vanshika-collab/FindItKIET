@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt';
 
 async function createAdmin() {
     const email = 'admin2@findit.com';
-    const password = 'adminpassword123';
+    const password = '<set-a-secure-password>';
     const name = 'Admin User Two';
 
     try {
