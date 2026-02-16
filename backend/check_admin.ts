@@ -7,7 +7,7 @@ async function main() {
     console.log('Verifying admin user...');
 
     const user = await prisma.user.findUnique({
-        where: { email: 'admin@kiet.edu' }
+        where: { email: 'admin@example.com' }
     });
 
     if (user) {
@@ -15,7 +15,7 @@ async function main() {
         console.log(`Role: ${user.role}`);
         console.log(`ID: ${user.id}`);
     } else {
-        console.log('User admin@kiet.edu NOT FOUND');
+        console.log('User admin@example.com NOT FOUND');
     }
 }
 

@@ -18,8 +18,8 @@ echo "👤 Test 2: Register New User"
 REGISTER_RESPONSE=$(curl -s -X POST "$BASE_URL/auth/register" \
   -H "Content-Type: application/json" \
   -d '{
-    "email": "test@kiet.edu",
-    "password": "password123",
+    "email": "test@example.com",
+    "password": "<your-password>",
     "name": "Test User"
   }')
 echo "$REGISTER_RESPONSE" | jq '.'
@@ -37,8 +37,8 @@ echo "🔐 Test 3: Login"
 LOGIN_RESPONSE=$(curl -s -X POST "$BASE_URL/auth/login" \
   -H "Content-Type: application/json" \
   -d '{
-    "email": "test@kiet.edu",
-    "password": "password123"
+    "email": "test@example.com",
+    "password": "<your-password>"
   }')
 echo "$LOGIN_RESPONSE" | jq '.'
 ACCESS_TOKEN=$(echo "$LOGIN_RESPONSE" | jq -r '.data.accessToken')
@@ -84,8 +84,8 @@ echo "Creating second user..."
 CLAIMER_RESPONSE=$(curl -s -X POST "$BASE_URL/auth/register" \
   -H "Content-Type: application/json" \
   -d '{
-    "email": "claimer@kiet.edu",
-    "password": "password123",
+    "email": "claimer@example.com",
+    "password": "<your-password>",
     "name": "Item Claimer"
   }')
 CLAIMER_TOKEN=$(echo "$CLAIMER_RESPONSE" | jq -r '.data.accessToken')
@@ -114,8 +114,8 @@ echo ""
 
 # Test 8: Create Admin User
 echo "👮 Test 8: Create Admin User (manual DB update required)"
-echo "Run this SQL to make test@kiet.edu an admin:"
-echo "UPDATE \"User\" SET role = 'ADMIN' WHERE email = 'test@kiet.edu';"
+echo "Run this SQL to make test@example.com an admin:"
+echo "UPDATE \"User\" SET role = 'ADMIN' WHERE email = 'test@example.com';"
 echo ""
 echo ""
 
@@ -141,15 +141,15 @@ echo "✨ All Tests Complete!"
 echo "=================================="
 echo ""
 echo "🔑 Key Information:"
-echo "  User Email: test@kiet.edu"
-echo "  Password: password123"
+echo "  User Email: test@example.com"
+echo "  Password: <your-password>"
 echo "  Access Token: ${ACCESS_TOKEN:0:50}..."
 echo "  Item ID: $ITEM_ID"
 echo "  Claim ID: $CLAIM_ID"
 echo ""
 echo "💡 Next Steps:"
 echo "  1. Run the iOS app in Xcode"
-echo "  2. Login with test@kiet.edu / password123"
+echo "  2. Login with test@example.com / <your-password>"
 echo "  3. Browse items and submit claims"
 echo "  4. Make user admin to test admin features"
 echo ""

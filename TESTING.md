@@ -26,8 +26,8 @@ cd backend
 curl -X POST http://localhost:3000/api/v1/auth/register \
   -H "Content-Type: application/json" \
   -d '{
-    "email": "user@kiet.edu",
-    "password": "password123",
+    "email": "user@example.com",
+    "password": "<your-password>",
     "name": "Test User"
   }'
 ```
@@ -37,8 +37,8 @@ curl -X POST http://localhost:3000/api/v1/auth/register \
 curl -X POST http://localhost:3000/api/v1/auth/login \
   -H "Content-Type: application/json" \
   -d '{
-    "email": "user@kiet.edu",
-    "password": "password123"
+    "email": "user@example.com",
+    "password": "<your-password>"
   }'
 ```
 
@@ -72,7 +72,7 @@ Connect to PostgreSQL:
 
 Update user role:
 ```sql
-UPDATE "User" SET role = 'ADMIN' WHERE email = 'user@kiet.edu';
+UPDATE "User" SET role = 'ADMIN' WHERE email = 'user@example.com';
 \q
 ```
 
@@ -97,8 +97,8 @@ Press `Cmd + R`
 ### 4. Test Flow
 
 1. **Login Screen**
-   - Email: `user@kiet.edu`
-   - Password: `password123`
+   - Email: `user@example.com`
+   - Password: `<your-password>`
    - Click "Login"
 
 2. **Home Tab**
@@ -188,7 +188,7 @@ npx prisma generate
 
 ## Test Credentials
 
-- **Regular User**: `user@kiet.edu` / `password123`
+- **Regular User**: `user@example.com` / `<your-password>`
 - **Admin User**: Same as above, after SQL update
 
 ## Next Steps

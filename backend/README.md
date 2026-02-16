@@ -113,16 +113,16 @@ Base URL: `http://localhost:3000/api/v1`
 # Register
 POST /auth/register
 {
-  "email": "student@kiet.edu",
-  "password": "password123",
+  "email": "student@example.com",
+  "password": "<your-password>",
   "name": "John Doe"
 }
 
 # Login
 POST /auth/login
 {
-  "email": "student@kiet.edu",
-  "password": "password123"
+  "email": "student@example.com",
+  "password": "<your-password>"
 }
 
 # Refresh token

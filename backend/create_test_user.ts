@@ -7,8 +7,8 @@ const prisma = new PrismaClient();
 async function main() {
     console.log('Creating valid test user...');
 
-    const email = 'test@kiet.edu';
-    const password = 'password123';
+    const email = 'test@example.com';
+    const password = '<your-password>';
 
     // Hash the password
     const salt = await bcrypt.genSalt(10);

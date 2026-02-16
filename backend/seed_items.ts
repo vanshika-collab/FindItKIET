@@ -12,7 +12,7 @@ async function main() {
         create: {
             email: 'user1@example.com',
             name: 'Alice Johnson',
-            passwordHash: 'hashedpassword123', // Mock password
+            passwordHash: 'hashed<your-password>', // Mock password
         }
     });
 
@@ -22,7 +22,7 @@ async function main() {
         create: {
             email: 'user2@example.com',
             name: 'Bob Smith',
-            passwordHash: 'hashedpassword123',
+            passwordHash: 'hashed<your-password>',
         }
     });
 

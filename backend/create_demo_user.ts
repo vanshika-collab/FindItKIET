@@ -7,7 +7,7 @@ const prisma = new PrismaClient();
 async function main() {
     console.log('Creating demo user...');
 
-    const email = 'demo@kiet.edu';
+    const email = 'demo@example.com';
     const password = 'demo123';
 
     // Hash the password
